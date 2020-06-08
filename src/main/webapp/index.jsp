@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<!-- isELIgnored="false"可以使得el语句得以使用 -->
 <html>
 <head>
     <title>SpringMVCdemo</title>
@@ -20,6 +21,8 @@
         组装map：<input name="map['one'].name" type="text"/><br/>
         组装map：<input name="map['one'].age" type="text"/><br/>
         组装时间戳：<input name="time" type="date"/><br/>
+        <!-- 会根据控制类中的注解requestparam的属性字段去差异化匹配 -->
+        <input name="myname" type="text"/><br/>
         <input type="submit" value="提交">
     </form>
 </body>
