@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 控制器类
@@ -104,5 +106,15 @@ public class HelloController {
     public String Text1(){
         System.out.println("text01");
         return "success";
+    }
+    @RequestMapping(value="/view")
+    public String V(Model model){
+        List<String> h = new ArrayList<String >();
+        h.add("http://www.baidu.com");
+        h.add("http://www.steampowered.com/");
+        h.add("https://www.epicgames.com/");
+        model.addAttribute("href",h);
+
+        return "gyview:";
     }
 }

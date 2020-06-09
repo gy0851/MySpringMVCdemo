@@ -25,5 +25,7 @@
         <input name="myname" type="text"/><br/>
         <input type="submit" value="提交">
     </form>
+    <a href="tosuccess">直接跳转到web-inf下页面的方法</a><br/>
+    <a href="view">我的页面</a>
 </body>
 </html>

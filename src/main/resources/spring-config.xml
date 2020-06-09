@@ -27,8 +27,16 @@
             </set>
         </property>
     </bean>
+    <bean class="com.ggyy0851.Resovler.MyViewResovler">
+        <property name="order" value="0"></property>
+    </bean>
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="i18n"/>
     </bean>
+    <!-- 对componse,controller等注解进行扫描 -->
     <mvc:annotation-driven conversion-service="conversionServiceFactoryBean"/>
+    <!-- 指定将某个路径访问的path进行映射，达到不需要通过controller类就实现跳转页面的效果，但这个方式仍然是走了默认的springmvc
+     流程的，可实现国际化等操作。但需要和annotation-driven标签配合使用，否则会导致问题-->
+    <!-- 该标签用于不实现逻辑，只负责跳转的controller，以免出现过多的无意义的controller方法 -->
+    <mvc:view-controller path="/tosuccess" view-name="success"/>
 </beans>
