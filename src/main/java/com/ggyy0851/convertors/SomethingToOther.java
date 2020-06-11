@@ -1,4 +1,4 @@
-package com.ggyy0851.converter;
+package com.ggyy0851.convertors;
 
 import org.springframework.core.convert.converter.Converter;
 
