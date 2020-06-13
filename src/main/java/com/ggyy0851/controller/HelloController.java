@@ -97,12 +97,12 @@ public class HelloController {
     }
 
     /**
-     *
+     *使用通配符？可匹配上text1,text2之类的访问请求，也可使用*来匹配任意长度字符，优先级按照最精确的全局匹配、单个模糊匹配和
+     *多个模糊匹配的顺序来执行，可以匹配多个层级的访问请求，比如a/※/test则可以匹配到a/sdf/test的请求，一个/划分一个层级
      * @return
      */
     @RequestMapping(value="/test?")
-    //使用通配符？可匹配上text1,text2之类的访问请求，也可使用*来匹配任意长度字符，优先级按照最精确的全局匹配、单个模糊匹配和
-    // 多个模糊匹配的顺序来执行，可以匹配多个层级的访问请求，比如a/*/test则可以匹配到a/sdf/test的请求，一个/划分一个层级
+
     public String Text1(){
         System.out.println("text01");
         return "success";
@@ -116,5 +116,20 @@ public class HelloController {
         model.addAttribute("href",h);
 
         return "gyview:";
+    }
+
+    /**
+     * 使用@responseBody注解将返回的对象放在response响应体中，jackson会自动将返回对象转换成json格式进行返回
+     * 将请求时传入的json转换成对象，也可使用@requestbody注解实现，将对象转换成指定类型传入
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value="/getajax")
+    public Account getAByAjax(@RequestBody Account account){
+        Account a = new Account();
+        a.setName("ggyy");
+        a.setPassword("13232");
+        a.setMoney(2222.22);
+        return a;
     }
 }

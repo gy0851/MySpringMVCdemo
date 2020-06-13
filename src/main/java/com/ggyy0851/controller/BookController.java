@@ -1,6 +1,8 @@
 package com.ggyy0851.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -20,7 +22,10 @@ public class BookController {
         return "success";
     }
     @RequestMapping(value="/book/{id}",method = RequestMethod.DELETE)
-    public String delBook(@PathVariable("id") int id){
+    public String delBook(@PathVariable("id") @Validated int id, BindingResult result){
+        if(result.hasErrors()){
+            return "success";
+        }
         System.out.println("删除了图书:"+id);
         return "success";
     }

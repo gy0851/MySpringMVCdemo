@@ -1,6 +1,7 @@
 package com.ggyy0851.pojo;
 
 import com.ggyy0851.controller.User;
+import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
 import java.util.Date;
