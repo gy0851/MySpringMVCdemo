@@ -12,6 +12,9 @@
     <title><%-- 国际化标签取值所用<fmt:message key="welcome"/>--%>欢迎</title>
 </head>
 <body>
+    <%
+        System.out.println("success.jsp..........");
+    %>
     <h3>成了</h3>
     ${requestScope.key}<br/>
     ${sessionScope.key}

@@ -1,16 +1,22 @@
 package com.ggyy0851.controller;
 
 import com.ggyy0851.pojo.Account;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 控制器类
@@ -19,12 +25,16 @@ import java.util.List;
  */
 @Controller
 public class HelloController {
-
+    @Autowired
+    private MessageSource messageSource;
     @RequestMapping(path = "/hello")
-    public String sayHello(HttpServletRequest r, HttpSession s){
+    public String sayHello(HttpServletRequest r, HttpSession s, Locale locale){
         r.setAttribute("key","request");
         s.setAttribute("key","session");
         System.out.println("Hello String MVC");
+        //国际化信息的获取方式，直接在页面使用fmt标签也可以
+        String message = messageSource.getMessage("welcomeinfo",null,locale);
+        System.out.println(message);
         return "success";
     }
     @RequestMapping("/save")
@@ -131,5 +141,18 @@ public class HelloController {
         a.setPassword("13232");
         a.setMoney(2222.22);
         return a;
+    }
+
+    /**
+     * 上传文件，用multipartfile包装
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/upload")
+    public String uploadImg(@RequestParam(value = "fileup") MultipartFile file) throws IOException {
+        System.out.println("文件名为："+file.getName());
+        file.transferTo(new File("D:\\workspace_idea\\MySpringMVCdemo\\MySpringMVCdemo\\src\\main\\webapp\\WEB-INF\\file"));
+        return "success";
     }
 }
