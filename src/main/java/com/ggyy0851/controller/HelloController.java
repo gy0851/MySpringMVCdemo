@@ -1,6 +1,7 @@
 package com.ggyy0851.controller;
 
 import com.ggyy0851.pojo.Account;
+import com.ggyy0851.pojo.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,14 +30,34 @@ public class HelloController {
     @Autowired
     private MessageSource messageSource;
     @RequestMapping(path = "/hello")
-    public String sayHello(HttpServletRequest r, HttpSession s, Locale locale){
+    public String sayHello(HttpServletRequest r, HttpSession s, Locale locale,@RequestParam(required = false) Integer i){
         r.setAttribute("key","request");
         s.setAttribute("key","session");
         System.out.println("Hello String MVC");
+        if(null!=i){
+            throw new MyException();
+        }
         //国际化信息的获取方式，直接在页面使用fmt标签也可以
         String message = messageSource.getMessage("welcomeinfo",null,locale);
         System.out.println(message);
         return "success";
+    }
+
+    /**
+     * 使用@ExceptionHandler注解来标识异常处理的方法，使得可以用非默认的方式处理异常
+     * 如果希望能够分不同Controller处理异常，可以考虑用继承父类Controller的异常处理方法的方式实现
+     * 也可以使用@ControllerAdvice注解到类上，表面该类用来在其他Controller前后进行异常处理，作为环绕通知
+     * ExceptionHandler(value={Exception.class})可以用逗号实现多种异常的处理
+     * @return
+     */
+    @ExceptionHandler(value={Exception.class})
+    //由于传入的形参只能是exception，所以不能使用其他参数
+    public ModelAndView MyExceptionHandler1(Exception ex){
+        System.out.println("进入了错误页面1");
+        ModelAndView mv = new ModelAndView("myerror");
+        //在返回的页面中显示具体异常信息
+        mv.addObject("ex",ex.getMessage());
+        return mv;
     }
     @RequestMapping("/save")
     /**

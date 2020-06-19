@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!-- 注解扫描 -->
-    <context:component-scan base-package="com.ggyy0851"/>
+    <context:component-scan base-package="com.ggyy0851" use-default-filters="false"/>
     <!--  视图解析器对象，用来模块化处理控制器想要跳转的页面-->
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
